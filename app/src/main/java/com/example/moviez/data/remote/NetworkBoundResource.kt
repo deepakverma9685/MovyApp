@@ -22,8 +22,8 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
     private val job = SupervisorJob()
     private val coroutineScope = CoroutineScope(job + Dispatchers.IO)
 
-    suspend fun build(): NetworkBoundResource<ResultType, RequestType> {
 
+    suspend fun build(): NetworkBoundResource<ResultType, RequestType> {
         withContext(Dispatchers.Main) {
              Resource.loading(null)
         }
@@ -47,13 +47,16 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
         val newData = loadFromDb()
         setValue(Resource.success(newData))
     }
-//
-//    private fun fetchFromNetwork(dbSource: LiveData<ResultType>) {
+
+//    private suspend fun fetchFromNetwork(dbSource: LiveData<ResultType>) {
 //        val apiResponse = createCallAsync()
 //        // we re-attach dbSource as a new source, it will dispatch its latest value quickly
 //
 //        when(apiResponse){
 //            is NetworkResponse.Success ->{
+//
+//            }
+//            is NetworkResponse.ServerError ->{
 //
 //            }
 //            else -> {}
@@ -63,7 +66,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
 //            setValue(Resource.loading(newData))
 //        }
 //        resultTwo.addSource(apiResponse) { response ->
-//            resultTwo.removeSource(apiResponse)
+//            resultTwo.removeSource(response)
 //            resultTwo.removeSource(dbSource)
 //            when (response) {
 //                is NetworkResponse.Success -> {

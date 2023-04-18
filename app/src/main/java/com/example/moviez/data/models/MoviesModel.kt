@@ -41,8 +41,8 @@ data class MoviesItem(
 	@field:SerializedName("title")
 	val title: String? = null,
 
-	@field:SerializedName("genre_ids")
-	val genreIds: List<Int?>? = null,
+//	@field:SerializedName("genre_ids")
+//	val genreIds: List<Int?>? = null,
 
 	@field:SerializedName("poster_path")
 	var posterPath: String? = null,
@@ -54,10 +54,10 @@ data class MoviesItem(
 	val releaseDate: String? = null,
 
 	@field:SerializedName("popularity")
-	val popularity: Any? = null,
+	val popularity: Float? = null,
 
 	@field:SerializedName("vote_average")
-	val voteAverage: Any? = null,
+	val voteAverage: Double? = null,
 
 	@field:SerializedName("id")
 	val id: Int? = null,
