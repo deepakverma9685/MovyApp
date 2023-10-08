@@ -27,7 +27,7 @@ suspend inline fun <T : Any, U : Any> executeWithRetry(
     var currentDelay = initialDelay
     repeat(times - 1) {
         when (val response = block()) {
-            is NetworkResponse.NetworkError -> {
+            is NetworkError -> {
                 delay(currentDelay)
                 currentDelay = (currentDelay * factor).toLong().coerceAtMost(maxDelay)
             }
@@ -49,7 +49,7 @@ suspend inline fun <T : Any, U : Any> executeWithRetry(
  * println(usersResponse() ?: "No users found")
  */
 operator fun <T : Any, U : Any> NetworkResponse<T, U>.invoke(): T? {
-    return if (this is NetworkResponse.Success) body else null
+    return if (this is Success) body else null
 }
 
 fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {

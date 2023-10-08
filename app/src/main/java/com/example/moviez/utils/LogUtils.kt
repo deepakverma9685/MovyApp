@@ -36,12 +36,12 @@ object LogUtils {
     }
 
     fun logApi(url: String?, headers: String?, request: String?) {
-        i("BWAPI", "URL : $url")
-        i("BWAPI", "HEADERS : $headers")
-        i("BWAPI", "REQUEST : $request")
+        i(AppConstants.TAG_API, "URL : $url")
+        i(AppConstants.TAG_API, "HEADERS : $headers")
+        i(AppConstants.TAG_API, "REQUEST : $request")
     }
 
     fun logApi(response: String?) {
-        i("TAG", "RESPONSE : $response")
+        i(AppConstants.TAG_API, "RESPONSE : $response")
     }
 }

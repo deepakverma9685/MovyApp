@@ -19,15 +19,15 @@ internal fun <S : Any, E : Any> HttpException.extractFromHttpException(errorConv
             errorConverter.convert(error)
         } catch (e: Exception) {
             // If unable to extract content, return with a null body and don't parse further
-            return NetworkResponse.ServerError(null, responseCode, headers, getErrorMessage(responseCode))
+            return NetworkResponse.serverError(null, responseCode, headers, getErrorMessage(responseCode))
         }
     }
-    return NetworkResponse.ServerError(errorBody, responseCode, headers, getErrorMessage(responseCode))
+    return NetworkResponse.serverError(errorBody, responseCode, headers, getErrorMessage(responseCode))
 }
 
 internal fun <S : Any, E : Any> Throwable.extractNetworkResponse(errorConverter: Converter<ResponseBody, E>): NetworkResponse<S, E> {
     return when (this) {
-        is IOException -> NetworkResponse.NetworkError(this)
+        is IOException -> NetworkResponse.networkError(this)
         is HttpException -> extractFromHttpException<S, E>(errorConverter)
         else -> throw this
     }

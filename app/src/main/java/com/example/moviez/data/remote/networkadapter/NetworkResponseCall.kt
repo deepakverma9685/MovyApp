@@ -18,7 +18,6 @@ internal class NetworkResponseCall<S : Any, E : Any>(
     override fun enqueue(callback: Callback<NetworkResponse<S, E>>) = synchronized(this) {
         backingCall.enqueue(object : Callback<S> {
             override fun onResponse(call: Call<S>, response: Response<S>) {
-
                 val body = response.body()
                 val headers = response.headers()
                 val code = response.code()
@@ -26,12 +25,10 @@ internal class NetworkResponseCall<S : Any, E : Any>(
 
                 if (response.isSuccessful) {
                     if (body != null) {
-                        callback.onResponse(this@NetworkResponseCall, Response.success(
-                            NetworkResponse.Success(body, headers)))
+                        callback.onResponse(this@NetworkResponseCall, Response.success(NetworkResponse.success(body, headers)))
                     } else {
                         // Response is successful but the body is null, so there's probably a server error here
-                        callback.onResponse(this@NetworkResponseCall, Response.success(
-                            NetworkResponse.ServerError(null, code, headers)))
+                        callback.onResponse(this@NetworkResponseCall, Response.success(NetworkResponse.serverError(null, code, headers)))
                     }
                 } else {
                     val convertedErrorBody = try { errorConverter.convert(errorBody) } catch (ex: Exception) { null }
@@ -47,7 +44,7 @@ internal class NetworkResponseCall<S : Any, E : Any>(
                     if (code == 500){
                         errorMessage = "Try again later. Contact support if problem persists"
                     }
-                    callback.onResponse(this@NetworkResponseCall, Response.success(NetworkResponse.ServerError(convertedErrorBody,code,headers,errorMessage)))
+                    callback.onResponse(this@NetworkResponseCall, Response.success(NetworkResponse.serverError(convertedErrorBody,code,headers,errorMessage)))
                 }
             }
 
