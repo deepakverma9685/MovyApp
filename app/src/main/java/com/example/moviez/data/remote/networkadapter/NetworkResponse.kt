@@ -16,6 +16,8 @@ sealed class NetworkResponse<out T, out U : Any> {
             return NetworkError(error)
         }
     }
+
+
 }
 
 /**
@@ -32,3 +34,4 @@ data class ServerError<U : Any>(val body: U?, val code: Int, val headers: Header
  * A request that didn't result in a response.
  */
 data class NetworkError(val error: IOException) : NetworkResponse<Nothing, Nothing>()
+

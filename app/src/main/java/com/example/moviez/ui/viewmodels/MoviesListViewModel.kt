@@ -65,7 +65,7 @@ class MoviesListViewModel @Inject constructor(private val dataRepository: DataRe
                 is com.example.moviez.data.remote.Result.Success -> {
                     _showProgress.value = false
                     totalPages = 0
-                    _moviesList.value = resp.data as List<MoviesItem>
+                    _moviesList.value = resp.data as? List<MoviesItem>
                 }
                 is com.example.moviez.data.remote.Result.Error -> {
                     _showProgress.value = false

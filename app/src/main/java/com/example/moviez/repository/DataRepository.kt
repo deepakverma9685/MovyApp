@@ -18,37 +18,37 @@ class DataRepository @Inject constructor(
     val appDatabase: AppDatabase
 ) {
 
-//    suspend fun getData(page: Long): Result<List<MoviesItem>> {
-//        Result.Loading(true)
-//        return when (val response = urlServices.getMovies(1)) {
-//            is NetworkResponse.Success -> {
-//                val movietiem = ArrayList<MoviesItem>()
-//                for (searchitem in response.body.results!!) {
-//                    searchitem?.page = response.body.page!!
-//                    searchitem?.totalPages =  response.body.totalPages!!
-//                    if (searchitem != null) {
-//                        movietiem.add(searchitem)
-//                    }
-//                }
-//                withContext(Dispatchers.IO) {
-//                    appDatabase.movieDao().insertMovies(movietiem)
-//                    Result.Success(appDatabase.movieDao().getMovies())
-//                }
-//
-//            }
-//            is NetworkResponse.ServerError -> {
-//                Result.Error(Exception(response.errorString),response.errorString)
-//            }
-//            else -> {
-//                Result.Error(Exception("response.errorString"))
-//            }
-//        }
-//    }
+    suspend fun getData(page: Long): Result<List<MoviesItem>> {
+        Result.Loading(true)
+        return when (val response = urlServices.getMovies(1)) {
+            is Success -> {
+                val movietiem = ArrayList<MoviesItem>()
+                for (searchitem in response.body.results!!) {
+                    searchitem?.page = response.body.page!!
+                    searchitem?.totalPages =  response.body.totalPages!!
+                    if (searchitem != null) {
+                        movietiem.add(searchitem)
+                    }
+                }
+                withContext(Dispatchers.IO) {
+                    appDatabase.movieDao().insertMovies(movietiem)
+                    Result.Success(appDatabase.movieDao().getMovies())
+                }
+
+            }
+            is ServerError -> {
+                Result.Error(Exception(response.errorString),response.errorString)
+            }
+            else -> {
+                Result.Error(Exception("response.errorString"))
+            }
+        }
+    }
 
 //    suspend fun getMovies(): Resource<MoviesModel> {
 //        return when (val response = urlServices.getMovies(1)) {
 //            is NetworkResponse.Success -> {
-//                Resource.success(response.body,)
+//                Resource.success(response.body)
 //            }
 //            is NetworkResponse.ServerError -> {
 //                Resource.error(response.errorString, null)
@@ -59,11 +59,17 @@ class DataRepository @Inject constructor(
 //        }
 //    }
 
-        suspend fun getMovies(): Resource<MoviesModel> {
+    suspend fun getMovies(): Resource<MoviesModel> {
         return when (val response = urlServices.getMovies(1)) {
-            is Success ->{ Resource.success(response.body,) }
-            is ServerError ->{ Resource.error(response.errorString, null)}
-            else -> {  Resource.error("", null)}
+            is Success -> {
+                Resource.success(response.body)
+            }
+            is ServerError -> {
+                Resource.error(response.errorString, null)
+            }
+            else -> {
+                Resource.error("", null)
+            }
         }
     }
 
