@@ -28,34 +28,34 @@ class MoviesListViewModel @Inject constructor(private val dataRepository: DataRe
        // getMoviesListf()
     }
 
-//    fun getMoviesList() {
-//        viewModelScope.launch {
-//            val resp = dataRepository.getMovies()
-//            when (resp){
-//                resp.isLoaded->{
-//
-//                }
-//
-//            }
-//            if (resp.isLoading){
-//
-//            }
-//            when (val resp = dataRepository.getMovies()) {
-//                if (resp.isLoading){
-//
-//                }
-//
-//                is Resource.success -> {
-//
-//                }
-//                is Result.Success -> {
-//
-//                }
-//                else -> {}
-//            }
-//        }
-//
-//    }
+    fun getMoviesList() {
+        viewModelScope.launch {
+            val resp = dataRepository.getMovies()
+            when (resp){
+                resp.isLoaded->{
+
+                }
+
+            }
+            if (resp.isLoading){
+
+            }
+            when (val resp = dataRepository.getMovies()) {
+                if (resp.isLoading){
+
+                }
+
+                is Resource.success -> {
+
+                }
+                is Result.Success -> {
+
+                }
+                else -> {}
+            }
+        }
+
+    }
 
     fun getMoviesList(page: Long) {
         _showProgress.value = true
