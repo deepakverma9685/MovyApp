@@ -11,4 +11,8 @@ class ListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
     }
+
+    fun functionC(){
+        System.out.print("Helo motu")
+    }
 }
