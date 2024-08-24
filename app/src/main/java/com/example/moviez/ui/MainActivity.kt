@@ -61,4 +61,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
+
+    fun functionA(){
+        val a = 5
+        val b = 8
+        val c = a+b
+    }
+
+
 }
