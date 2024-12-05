@@ -61,4 +61,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
+
+    fun functionB(){
+        print("Hello Deepak")
+    }
 }
